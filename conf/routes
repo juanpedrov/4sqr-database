@@ -4,6 +4,9 @@
 
 # Home page
 GET     /                                       Application.index
+POST	/credentials							Application.credentials
+GET     /categories                             Application.categories
+POST	/venues									Application.fillVenuesDb
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

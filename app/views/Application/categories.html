@@ -1,0 +1,32 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+  
+#{if categories}
+
+    <h3>Fill 4sqr database with venues based on:</h3>            
+	 
+	#{form @Application.fillVenuesDb()}
+
+		<p>
+		    <div class="categories">    
+			     	<div class="category">
+						<select name="categoryId">
+							#{list items:categories, as:'category'}					
+						  		<option value="${category.getId()}">${category.getName()}</option>
+		        			#{/list}				  
+						</select>     
+					</div>		
+
+		    </div>
+		</p>
+
+	    <p>
+	        <label for="aaa">Your name: </label>
+	        <input type="text" name="aaa" id="aaa" />
+	    </p>
+
+	    <p>
+	        <input type="submit" value="Submit your comment" />
+	    </p>
+	#{/form}         
+#{/if}

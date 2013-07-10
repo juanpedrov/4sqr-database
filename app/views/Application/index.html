@@ -1,4 +1,19 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 
-#{welcome /}
+<h3>Inform you Foursquare Credentials</h3>            
+ 
+#{form @Application.credentials()}
+    <p>
+        <label for="clientId">Client ID: </label>
+        <input type="text" name="clientId" id="clientId" autocomplete="on" />
+    </p>
+    <p>
+        <label for="clientSecret">Client Secret: </label>
+        <input type="text" name="clientSecret" id="clientSecret" autocomplete="on" />
+    </p>
+
+    <p>
+        <input type="submit" value="Submit your credentials" />
+    </p>
+#{/form}         
