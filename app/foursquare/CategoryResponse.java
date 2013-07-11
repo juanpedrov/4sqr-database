@@ -13,7 +13,7 @@ public class CategoryResponse {
 	private String pluralName;
 	private String shortName;
 	private IconResponse icon;
-	private String primary;
+	private boolean primary;
 	private List<CategoryResponse> categories;
 	
 	
@@ -53,10 +53,10 @@ public class CategoryResponse {
 	public void setIcon(IconResponse icon) {
 		this.icon = icon;
 	}
-	public String getPrimary() {
+	public boolean getPrimary() {
 		return primary;
 	}
-	public void setPrimary(String primary) {
+	public void setPrimary(boolean primary) {
 		this.primary = primary;
 	}
 	public List<CategoryResponse> getCategories() {

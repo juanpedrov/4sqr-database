@@ -1,5 +1,5 @@
 #{extends 'main.html' /}
-#{set title:'Home' /}
+#{set title:'Fill Database' /}
   
 #{if categories}
 
@@ -21,12 +21,17 @@
 		</p>
 
 	    <p>
-	        <label for="aaa">Your name: </label>
-	        <input type="text" name="aaa" id="aaa" />
+	        <label for="ll">Latitude, Longitude: </label>
+	        <input type="text" name="ll" id="ll" />
 	    </p>
 
 	    <p>
-	        <input type="submit" value="Submit your comment" />
+	        <label for="city">City: </label>
+	        <input type="text" name="city" id="city" />
+	    </p>
+	    
+	    <p>
+	        <input type="submit" value="Fill database" />
 	    </p>
 	#{/form}         
 #{/if}

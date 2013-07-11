@@ -1,0 +1,21 @@
+#{extends 'main.html' /}
+#{set title:'Venues' /}
+  
+#{if venues}
+
+	<h3>Venues</h3>            
+
+
+		<p>
+		    <div class="venues">    
+			     	<div class="venue">
+						<ul name="venues">
+							#{list items:venues, as:'venue'}					
+						  		<li> ${venue.getName()}</li>
+		        			#{/list}				  
+						</ul>     
+					</div>		
+
+		    </div>
+		</p>       
+#{/if}
