@@ -1,5 +1,7 @@
 package models;
 
+import geolocation.VenueLocation;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -13,7 +15,7 @@ import org.hibernate.annotations.GenericGenerator;
 import play.db.jpa.GenericModel;
 
 @Entity
-public class Venue extends GenericModel {
+public class Venue extends BaseModel {
 
 	@Id
 	@GeneratedValue(generator = "system-uuid")
@@ -22,17 +24,17 @@ public class Venue extends GenericModel {
 	
 	private String name;
 	
-	private double latitude;
+	private double lat;
 	
-	private double longitude;
+	private double lng;
 	
 	private String locationId;
 
 	public Venue(String name, double longitude, double latitude) {
 		super();
 		this.name = name;
-		this.latitude = latitude;
-		this.longitude = longitude;
+		this.lat = latitude;
+		this.lng = longitude;
 	}
 
 	public String getId() {
@@ -52,19 +54,19 @@ public class Venue extends GenericModel {
 	}
 
 	public double getLongitude() {
-		return longitude;
+		return lng;
 	}
 
-	public void setLongitude(double longitude) {
-		this.longitude = longitude;
+	public void setLongitude(double lng) {
+		this.lng = lng;
 	}
 
 	public double getLatitude() {
-		return latitude;
+		return lat;
 	}
 
-	public void setLatitude(double latitude) {
-		this.latitude = latitude;
+	public void setLatitude(double lat) {
+		this.lat = lat;
 	}
 
 	public String getLocationId() {
@@ -75,12 +77,12 @@ public class Venue extends GenericModel {
 		this.locationId = locationId;
 	}
 
-	public static List<Venue> findByLocations(List<Location> locations) {
+	public static List<Venue> findByLocations(List<VenueLocation> locations) {
 		List<Venue> venues = new ArrayList<Venue>();
 		Venue venue;
 		
-		for (Iterator<Location> iterator = locations.iterator(); iterator.hasNext();) {
-			Location location = iterator.next();
+		for (Iterator<VenueLocation> iterator = locations.iterator(); iterator.hasNext();) {
+			VenueLocation location = iterator.next();
 			
 			venue = Venue.findByLocationId(location.getIdAsStr());
 			venues.add(venue);
