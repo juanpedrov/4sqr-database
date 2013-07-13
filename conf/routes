@@ -7,6 +7,7 @@ GET     /                                       Application.index
 POST	/credentials							Application.credentials
 GET     /categories                             Application.categories
 POST	/venues									Application.fillVenuesDb
+POST	/find_venues							Application.findVenuesAround
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

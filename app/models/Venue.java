@@ -1,5 +1,9 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -24,7 +28,7 @@ public class Venue extends GenericModel {
 	
 	private String locationId;
 
-	public Venue(String name, double latitude, double longitude) {
+	public Venue(String name, double longitude, double latitude) {
 		super();
 		this.name = name;
 		this.latitude = latitude;
@@ -69,7 +73,24 @@ public class Venue extends GenericModel {
 
 	public void setLocationId(String locationId) {
 		this.locationId = locationId;
+	}
+
+	public static List<Venue> findByLocations(List<Location> locations) {
+		List<Venue> venues = new ArrayList<Venue>();
+		Venue venue;
+		
+		for (Iterator<Location> iterator = locations.iterator(); iterator.hasNext();) {
+			Location location = iterator.next();
+			
+			venue = Venue.findByLocationId(location.getIdAsStr());
+			venues.add(venue);
+		}
+
+		return venues;
+	}
+
+	public static Venue findByLocationId(String locationId) {
+
+		return Venue.find("locationId = ?", locationId).first();
 	}	
-	
-	
 }

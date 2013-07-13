@@ -22,6 +22,20 @@ import foursquare.VenueResponse;
 public class Application extends Controller {
 
 
+
+	public static void findVenuesAround(String ll) {
+
+		String[] loc;
+		List<Location> locations;
+		List<Venue> venues;
+		
+		loc = ll.split(",");
+		locations = Location.findNear(Double.parseDouble((loc[1])), Double.parseDouble((loc[0])), 10);
+		
+		venues = Venue.findByLocations(locations);
+		
+		render(venues);
+	}
 	
     public static void index() {
     	
@@ -30,19 +44,13 @@ public class Application extends Controller {
     }
 
     private static void mongotest() {
-    	
-    	Location loc = new Location(new double[] {31,32});
-    	loc.save();
-    	loc = new Location(new double[] {31,32});
-    	loc.save();
-    	
-    	Location loc2 = (Location) Location.find().field("location").near(0, 0, true).get(); 
-    	
-    	System.out.print(loc2.getId());
-    	System.out.print("\n");
-    	System.out.print(loc2.getLatitude()); 	
-    	System.out.print("\n");
-    	System.out.print(loc2.getLongitude());    	
+    	 
+//    	Location loc = new Location(new double[] {31,32});
+//    	loc.save();
+//    	loc = new Location(new double[] {31,32});
+//    	loc.save();
+//    	
+//    	Location loc2 = (Location) Location.find().field("location").near(0, 0, 0, true).get();  	
 	}
 
 	public static void credentials(String clientId, String clientSecret) {
@@ -60,16 +68,26 @@ public class Application extends Controller {
     }
 
 	public static void fillVenuesDb(String categoryId, String ll, String city) {
-    	List<VenueResponse> venues;    	
+    	List<VenueResponse> venues;
+    	Location loc;
     	
     	venues = getVenuesUtil(null, categoryId, ll, city);
         for (Iterator<VenueResponse> iterator = venues.iterator(); iterator.hasNext();) {
         	VenueResponse venue = iterator.next();
-        	        	
+
+    		loc		= new Location(new double[] {venue.getLocation().getLng(), venue.getLocation().getLat()});
+    		loc.save();
+
         	Venue dbVenue = Venue.find("name = ?", venue.getName()).first();
         	if (dbVenue == null) {
         		
-        		dbVenue = new Venue(venue.getName(), venue.getLocation().getLat(), venue.getLocation().getLng());
+        		dbVenue = new Venue(venue.getName(), venue.getLocation().getLng(), venue.getLocation().getLat());
+        		dbVenue.setLocationId(loc.getIdAsStr());
+        		dbVenue.save();
+        	}
+        	else {
+
+        		dbVenue.setLocationId(loc.getIdAsStr());
         		dbVenue.save();
         	}
         }   

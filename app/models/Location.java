@@ -1,6 +1,10 @@
 package models;
 
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import play.modules.morphia.Model;
 
 import com.google.code.morphia.annotations.Entity;
@@ -33,4 +37,21 @@ public class Location extends Model {
 	public void setLongitude(double longitude) {
 		this.location[0] = longitude;
 	}	
+	
+	public static List<Location> findNear(double longitude, double latitude, double maxDistance) {
+		List<Location> locations;
+		List<Model> modelLocations;
+		
+		modelLocations = Location.find().field("location").near(longitude, latitude, maxDistance, true).asList();
+		locations = new ArrayList<Location>();
+		
+		for (Iterator<Model> iterator = modelLocations.iterator(); iterator.hasNext();) {
+			Model modelLocation = iterator.next();
+			Location location = (Location) modelLocation;
+			
+			locations.add(location);
+		}
+		
+		return locations;
+	}
 }
