@@ -1,19 +1,18 @@
 package controllers;
 
+import foursquare.CategoryResponse;
+import foursquare.FoursquareConnectionManager;
+import foursquare.VenueResponse;
+import geolocation.VenueLocation;
+
 import java.util.Iterator;
 import java.util.List;
 
 import models.FoursquareCredentials;
 import models.Venue;
+import morphia.ObjectIdBinder;
 import play.mvc.Controller;
 import play.mvc.Util;
-
-import com.google.code.morphia.Datastore;
-
-import foursquare.CategoryResponse;
-import foursquare.FoursquareConnectionManager;
-import foursquare.VenueResponse;
-import geolocation.VenueLocation;
 
 /**
  * @author juanpedrov

@@ -1,0 +1,3 @@
+[submodule "app/foursquare"]
+	path = app/foursquare
+	url = https://github.com/juanpedrov/foursquareAPI.git
